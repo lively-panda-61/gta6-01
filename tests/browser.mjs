@@ -63,8 +63,11 @@ try {
   });
   page.on('requestfailed', (r) => errors.push(`request failed: ${r.url()}`));
 
-  await page.goto(`http://127.0.0.1:${port}/index.html?shot=cover`, { waitUntil: 'load' });
+  await page.goto(`http://127.0.0.1:${port}/index.html`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.__game && window.__game.ready, null, { timeout: 30000 });
+  // Start a fresh game from the menu, like a player would.
+  await page.click('#btn-new');
+  await page.waitForFunction(() => window.__game && window.__game.state().phase === 'playing', null, { timeout: 10000 });
   await page.waitForTimeout(1500);
   check('page loads with no console errors', errors.length === 0, errors.slice(0, 3).join(' | '));
   check('no external requests', externals.length === 0, externals.slice(0, 3).join(' | '));

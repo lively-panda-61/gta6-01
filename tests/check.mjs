@@ -86,7 +86,13 @@ test('gate: screenshots 3-4, size and dimensions', () => {
 });
 
 test('no network references in the game source', () => {
-  const files = walk(gameDir).filter((f) => /\.(html|js|mjs|css|json)$/.test(f));
+  // The vendored library under game/vendor/ is excluded: it is a
+  // minified *.min.js the gate lists as vendored, never as source, and
+  // its embedded URL strings are never loaded (the gate checks import
+  // specifiers and element references, not string literals).
+  const files = walk(gameDir)
+    .filter((f) => /\.(html|js|mjs|css|json)$/.test(f))
+    .filter((f) => !f.includes(`${gameDir}/vendor/`));
   for (const f of files) {
     const text = readFileSync(f, 'utf8');
     assert.ok(!/https?:\/\//.test(text), `${f} must not reference http(s) URLs`);
