@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Port Solano — Open World Crime</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./app.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<canvas id="game" aria-label="Port Solano: an open-world crime game. Explore the city on foot and by car, steal cars, outrun the police and run jobs for Rico Delgado."></canvas>
+
+<div id="hud" style="display:none">
+  <div id="hud-top-left">
+    <div id="hud-objective"></div>
+    <div id="hud-timer"></div>
+    <div id="hud-missions"></div>
+  </div>
+  <div id="hud-top-right">
+    <div id="hud-stars">☆☆☆☆☆</div>
+    <div id="hud-clock">16:40</div>
+    <div id="hud-cash">$250</div>
+  </div>
+  <div id="hud-bottom-left">
+    <canvas id="hud-minimap" width="220" height="220"></canvas>
+  </div>
+  <div id="hud-bottom-right">
+    <div id="hud-speed"></div>
+    <div class="bar"><div id="hud-health-fill"></div></div>
+    <div class="bar armor"><div id="hud-armor-fill"></div></div>
+    <div id="hud-health-label">HEALTH</div>
+  </div>
+  <div id="hud-prompt"></div>
+  <div id="hud-channel" style="display:none"><div id="hud-channel-text"></div><div class="channel-track"><div id="hud-channel-fill"></div></div></div>
+  <div id="hud-toast"><div id="hud-toast-title"></div><div id="hud-toast-body"></div></div>
+  <div id="hud-damage"></div>
+  <div id="hud-crosshair">+</div>
+</div>
+
+<div id="screen-start" class="screen">
+  <div class="panel">
+    <h1>PORT SOLANO</h1>
+    <p class="tagline">A sun-soaked open-world crime story</p>
+    <p class="story">Maya "Vex" Solano is out of prison and her late brother's garage belongs to the Marlow crew now. One job at a time, she is going to buy it back — driving, stealing, shooting and outrunning the whole Port Solano police department.</p>
+    <div class="buttons">
+      <button id="btn-new">New Game</button>
+      <button id="btn-continue" style="display:none">Continue</button>
+    </div>
+    <div class="controls">
+      <span><b>WASD</b> move / drive</span><span><b>Mouse</b> camera, click to shoot</span>
+      <span><b>E</b> steal / exit car</span><span><b>Shift</b> sprint / aim</span>
+      <span><b>Space</b> handbrake</span><span><b>N</b> next job</span>
+      <span><b>P</b> pause</span><span><b>M</b> mute</span>
+    </div>
+    <p class="fine">8 story missions · traffic &amp; pedestrians · wanted levels &amp; police chases · save in your browser</p>
+  </div>
+</div>
+
+<div id="screen-pause" class="screen" style="display:none">
+  <div class="panel">
+    <h2>Paused</h2>
+    <div class="buttons">
+      <button id="btn-resume">Resume</button>
+      <button id="btn-save">Save Game</button>
+      <button id="btn-mute">Mute (M)</button>
+      <button id="btn-restart">Restart</button>
+    </div>
+  </div>
+</div>
+
+<div id="screen-gameover" class="screen" style="display:none">
+  <div class="panel">
+    <h2 class="wasted">WASTED</h2>
+    <p>Marlow's crew got the better of you — this time.</p>
+    <div class="buttons">
+      <button id="btn-retry">Get Patched Up</button>
+    </div>
+  </div>
+</div>
+
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
